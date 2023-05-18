@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id "io.qameta.allure" version "2.11.2"
+
+}
+
+group 'ru.boyko.darya'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+allure {
+    report {
+        version.set("2.22.0") //версия Allure Report (https://github.com/allure-framework/allure2)
+    }
+    adapter {
+        aspectjWeaver.set(true) // обработка аннотации @Step
+        frameworks {
+            junit5 {
+                adapterVersion.set("2.22.0") //версия Allure JUnit5 (https://github.com/allure-framework/allure-java)
+            }
+        }
+    }
+}
+
+dependencies {
+    testImplementation ('org.junit.jupiter:junit-jupiter:5.9.0',
+            'com.codeborne:selenide:6.14.1',
+            'io.qameta.allure:allure-selenide:2.22.0'
+    )
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.9.0')
+}
+
+test {
+    useJUnitPlatform()
+}
